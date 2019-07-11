@@ -1,30 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Blog.DAL;
+using Blog.DTO;
+using Blog.ViewModels;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
+        private BlogContext dbContext;
+
+        public HomeController()
+        {
+            dbContext = new BlogContext();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var list = dbContext.Posts.Select(p => new PostDTO
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Content = p.Content,
+                AuthorName = p.AuthorName,
+
+
+            }).ToList();
+
+            var postsList = new PostsListViewModel
+            {
+                PostsList = list
+            };
+
+            return View(postsList);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
