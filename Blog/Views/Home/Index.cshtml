@@ -6,21 +6,16 @@
 
 <h2>Twoje Posty</h2>
 
-<br />
+    <button class="btn btn-primary">Dodaj post</button>
+
+
 
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th class="text-center">
                Tytuł
             </th>
-            <th>
-              Zawartość
-            </th>
-            <th>
-              Autor
-            </th>
-
             <th></th>
         </tr>
     </thead>
@@ -29,14 +24,15 @@
         {
            
             <tr>
-                <td>
+                <td class="text-center">
                     @item.Title
                 </td>
+   
                 <td>
-                    @item.Content
-                </td>
-                <td>
-                    @item.AuthorName
+                    @Html.ActionLink("Wyświetl", "Details", "Posts", new { id = item.Id }, null) |
+                    @Html.ActionLink("Edytuj", "Edit","Posts", new { id = item.Id }, null) |
+                    @Html.ActionLink("Usuń", "Delete", "Posts", new { id = item.Id }, null) |
+
                 </td>
             </tr>
           

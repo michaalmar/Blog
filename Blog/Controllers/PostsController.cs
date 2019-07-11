@@ -1,6 +1,7 @@
 ﻿using Blog.DAL;
 using Blog.Models;
 using Blog.ViewModels;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
@@ -35,9 +36,55 @@ namespace Blog.Controllers
 
             return RedirectToAction("Index", "Home");
 
+        }
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Post post = dbContext.Posts.Find(id);
+            dbContext.Posts.Remove(post);
+            dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+
+        }
+        
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Post post = dbContext.Posts.Find(id);
+
+            var postVM = new PostDetailsViewModel
+            {
+                AuthorName = post.AuthorName,
+                Content = post.Content,
+                Title = post.Title,    
+            };
+
+            return View(postVM);
 
         }
 
+
+
+
+
+
+
+
     }
+
+
+
+
 }
+
 

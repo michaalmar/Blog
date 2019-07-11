@@ -1,0 +1,20 @@
+﻿@model Blog.ViewModels.PostDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+<div>
+
+   @Model.Content
+</div>
+<div>
+    @Model.AuthorName
+</div>
+
+
+
+

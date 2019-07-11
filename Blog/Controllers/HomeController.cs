@@ -1,7 +1,9 @@
 ﻿using Blog.DAL;
 using Blog.DTO;
+using Blog.Models;
 using Blog.ViewModels;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
@@ -34,6 +36,10 @@ namespace Blog.Controllers
 
             return View(postsList);
         }
+
+     
+
+
 
 
 
