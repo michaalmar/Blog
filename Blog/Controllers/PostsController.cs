@@ -51,7 +51,7 @@ namespace Blog.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-        
+
         [HttpGet]
         public ActionResult Details(int? id)
         {
@@ -66,7 +66,7 @@ namespace Blog.Controllers
             {
                 AuthorName = post.AuthorName,
                 Content = post.Content,
-                Title = post.Title,    
+                Title = post.Title,
             };
 
             return View(postVM);
@@ -74,17 +74,56 @@ namespace Blog.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = dbContext.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            var postVM = new PostEditViewModel
+            {
+                Content = post.Content,
+                Title = post.Title,
+            };
 
 
+            return View(postVM);
+
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var postToUpdate = dbContext.Posts.Find(id);
+
+            if (TryUpdateModel(postToUpdate, new string[] { "Content", "Title" }))
+            {
+                dbContext.SaveChanges();
+               return RedirectToAction("Index", "Home");
+            }
+
+            var newPostVm = new PostEditViewModel
+            {
+                Content = postToUpdate.Content,
+                Title = postToUpdate.Title,
+            };
+
+            return View(newPostVm);
 
 
-
+        }
 
     }
-
-
-
-
 }
-
-
