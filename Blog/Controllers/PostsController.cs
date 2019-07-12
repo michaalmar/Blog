@@ -1,18 +1,16 @@
-﻿using Blog.DAL;
-using Blog.Models;
+﻿using Blog.IServices;
 using Blog.ViewModels;
-using System.Net;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly BlogContext dbContext;
+        private readonly IPostsService postsService;
 
-        public PostsController()
+        public PostsController(IPostsService postsService)
         {
-            dbContext = new BlogContext();
+            this.postsService = postsService;
         }
 
         public ActionResult Create()
@@ -21,51 +19,30 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(PostCreateViewModel postVM)
+        public ActionResult Create(PostCreateViewModel post)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View("Create", postVM);
+                postsService.Create(post);
             }
-            var post = new Post
-            {
-                Title = postVM.Title,
-                Content = postVM.Content,
-                AuthorName = postVM.AuthorName,
-                Created = postVM.GetDataTime(),
-            };
-
-
-            dbContext.Posts.Add(post);
-            dbContext.SaveChanges();
 
             return RedirectToAction("Index", "Home");
 
         }
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
-            Post post = dbContext.Posts.Find(id);
-            dbContext.Posts.Remove(post);
-            dbContext.SaveChanges();
+        public ActionResult Delete(int id)
+        {
+
+            postsService.Delete(id);
 
             return RedirectToAction("Index", "Home");
 
         }
 
         [HttpGet]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Post post = dbContext.Posts.Find(id);
+            var post = postsService.Get(id);
 
             var postVM = new PostDetailsViewModel
             {
@@ -75,18 +52,14 @@ namespace Blog.Controllers
             };
 
             return View(postVM);
-
         }
 
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = dbContext.Posts.Find(id);
+            var post = postsService.Get(id);
+
             if (post == null)
             {
                 return HttpNotFound();
@@ -98,36 +71,17 @@ namespace Blog.Controllers
                 Title = post.Title,
             };
 
-
             return View(postVM);
-
         }
 
+
         [HttpPost]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(PostEditViewModel postVM)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
-            var postToUpdate = dbContext.Posts.Find(id);
+            postsService.Update(postVM);
 
-            if (TryUpdateModel(postToUpdate, new string[] { "Content", "Title" }))
-            {
-                dbContext.SaveChanges();
-               return RedirectToAction("Index", "Home");
-            }
-
-            var newPostVm = new PostEditViewModel
-            {
-                Content = postToUpdate.Content,
-                Title = postToUpdate.Title,
-            };
-
-            return View(newPostVm);
-
-
+            return RedirectToAction("Index","Home");
         }
 
     }

@@ -1,47 +1,29 @@
-﻿using Blog.DAL;
-using Blog.DTO;
-using Blog.Models;
+﻿using Blog.IServices;
 using Blog.ViewModels;
-using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private BlogContext dbContext;
+        private readonly IPostsService postsService;
 
-        public HomeController()
+        public HomeController(IPostsService postsService)
         {
-            dbContext = new BlogContext();
+            this.postsService = postsService;
         }
 
         public ActionResult Index()
         {
-            var list = dbContext.Posts.Select(p => new PostDTO
-            {
-                Id = p.Id,
-                Title = p.Title,
-                Content = p.Content,
-                AuthorName = p.AuthorName,
-
-
-            }).ToList();
 
             var postsList = new PostsListViewModel
             {
-                PostsList = list
+                PostsList = postsService.GetAll()
             };
 
             return View(postsList);
         }
 
-     
-
-
-
-
-
     }
+
 }
