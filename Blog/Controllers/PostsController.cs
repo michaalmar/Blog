@@ -8,8 +8,13 @@ namespace Blog.Controllers
 {
     public class PostsController : Controller
     {
-        private BlogContext dbContext = new BlogContext();
-        // GET: Posts
+        private readonly BlogContext dbContext;
+
+        public PostsController()
+        {
+            dbContext = new BlogContext();
+        }
+
         public ActionResult Create()
         {
             return View();
