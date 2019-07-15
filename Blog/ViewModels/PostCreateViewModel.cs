@@ -15,5 +15,8 @@ namespace Blog.ViewModels
             return DateTime.Now;
 
         }
+
+        public byte[] Image { get; set; }
+
     }
 }

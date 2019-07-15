@@ -1,5 +1,6 @@
 ﻿using Blog.IServices;
 using Blog.ViewModels;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
@@ -21,9 +22,13 @@ namespace Blog.Controllers
         [HttpPost]
         public ActionResult Create(PostCreateViewModel post)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
+
             if (ModelState.IsValid)
             {
-                postsService.Create(post);
+                postsService.Create(post,file);
+
             }
 
             return RedirectToAction("Index", "Home");
@@ -83,6 +88,9 @@ namespace Blog.Controllers
 
             return RedirectToAction("Index","Home");
         }
+
+
+       
 
     }
 }

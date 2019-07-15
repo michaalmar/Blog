@@ -13,9 +13,10 @@
 <table class="table">
     <thead>
         <tr>
-            <th class="text-center">
+            <th>
                Tytuł
             </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -24,9 +25,23 @@
         {
            
             <tr>
-                <td class="text-center">
+                <td>
                     @item.Title
                 </td>
+                <td>
+                 
+                    @{
+                         var imgsrc = "~/Post/Images/pisanie-reczne.jpg";
+                        if (item.Image != null)
+                        {
+                            var base64 = Convert.ToBase64String(item.Image);
+                            imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                        }
+
+                        <img src='@imgsrc' width=200 height=200 />
+                    }
+                </td>
+
    
                 <td>
                     @Html.ActionLink("Wyświetl", "Details", "Posts", new { id = item.Id }, null) |
@@ -34,6 +49,7 @@
                     @Html.ActionLink("Usuń", "Delete", "Posts", new { id = item.Id }, null) |
 
                 </td>
+
             </tr>
           
         }

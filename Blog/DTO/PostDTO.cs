@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Blog.DTO
 {
@@ -16,5 +13,7 @@ namespace Blog.DTO
         public DateTime Created { get; set; }
 
         public string AuthorName { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }

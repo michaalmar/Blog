@@ -2,6 +2,7 @@
 using Blog.Models;
 using Blog.ViewModels;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Blog.IServices
 {
@@ -15,7 +16,9 @@ namespace Blog.IServices
 
         bool Update(PostEditViewModel viewModel);
 
-        Post Create(PostCreateViewModel viewModel);
+        Post Create(PostCreateViewModel viewModel, HttpPostedFileBase file );
+
+      //  byte[] GetImageFromDataBase(int Id);
 
     }
 }

@@ -165,6 +165,14 @@
     <Compile Include="Migrations\201907110746309_PostModel.Designer.cs">
       <DependentUpon>201907110746309_PostModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907150631531_AddImage.cs" />
+    <Compile Include="Migrations\201907150631531_AddImage.Designer.cs">
+      <DependentUpon>201907150631531_AddImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907150719319_AddImageinByte[].cs" />
+    <Compile Include="Migrations\201907150719319_AddImageinByte[].Designer.cs">
+      <DependentUpon>201907150719319_AddImageinByte[].cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -184,6 +192,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Post\Images\pisanie-reczne.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -273,6 +282,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907110746309_PostModel.resx">
       <DependentUpon>201907110746309_PostModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907150631531_AddImage.resx">
+      <DependentUpon>201907150631531_AddImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907150719319_AddImageinByte[].resx">
+      <DependentUpon>201907150719319_AddImageinByte[].cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

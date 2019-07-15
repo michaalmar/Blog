@@ -5,7 +5,9 @@ using Blog.Models;
 using Blog.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 
 namespace Blog.Services
 {
@@ -18,20 +20,32 @@ namespace Blog.Services
             this.dbContext = dbContext;
         }
 
-        public Post Create(PostCreateViewModel viewModel)
+        public Post Create(PostCreateViewModel viewModel, HttpPostedFileBase file )
         {
+            viewModel.Image = ConvertToBytes(file);
+
             var post = new Post
             {
                 Title = viewModel.Title,
                 Content = viewModel.Content,
                 AuthorName = viewModel.AuthorName,
                 Created = DateTime.UtcNow,
+                Image = viewModel.Image,
             };
 
             dbContext.Posts.Add(post);
             dbContext.SaveChanges();
 
             return post;
+        }
+
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
+
         }
 
 
@@ -69,10 +83,16 @@ namespace Blog.Services
                 Title = p.Title,
                 Content = p.Content,
                 AuthorName = p.AuthorName,
+                Image = p.Image,
 
 
             }).ToList();
 
-       
+        //public byte[] GetImageFromDataBase(int Id)
+        //{
+        //    var q = from temp in dbContext.Posts where temp.Id == Id select temp.Image;
+        //    byte[] cover = q.First();
+        //    return cover;
+        //}
     }
 }
