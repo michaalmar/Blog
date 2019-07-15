@@ -11,6 +11,8 @@ namespace Blog.ViewModels
         public string Content { get; set; }
 
         public string AuthorName { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }
 

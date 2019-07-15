@@ -7,10 +7,29 @@
 
 <h2>@Model.Title</h2>
 
+
+<div>
+    @{
+        //var imgsrc = "/Post/Images/pisanie-reczne.jpg";
+        if (Model.Image.Length != 0)
+        {
+            var base64 = Convert.ToBase64String(Model.Image);
+            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+            <img src='@imgsrc' style="max-width:500px; max-height:500px " />
+
+        }
+
+
+    }
+</div>
 <div>
 
    @Model.Content
 </div>
+<br />
+
+
 <div>
     @Model.AuthorName
 </div>

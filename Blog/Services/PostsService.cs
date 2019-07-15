@@ -84,6 +84,7 @@ namespace Blog.Services
                 Content = p.Content,
                 AuthorName = p.AuthorName,
                 Image = p.Image,
+                Created = p.Created,
 
 
             }).ToList();

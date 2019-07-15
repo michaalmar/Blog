@@ -45,6 +45,7 @@ namespace Blog.Controllers
         }
 
         [HttpGet]
+       // [Route("{id}/{Title}")]
         public ActionResult Details(int id)
         {
             var post = postsService.Get(id);
@@ -54,6 +55,8 @@ namespace Blog.Controllers
                 AuthorName = post.AuthorName,
                 Content = post.Content,
                 Title = post.Title,
+                Created = post.Created,
+                Image = post.Image,
             };
 
             return View(postVM);
