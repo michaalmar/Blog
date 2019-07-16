@@ -24,7 +24,7 @@ namespace Blog.Controllers
             return View(postsList);
 
         }
-
+        //test//
 
     }
 
