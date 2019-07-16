@@ -26,21 +26,6 @@ namespace Blog.Controllers
         }
 
 
-
-        ///// <param name="id"></param>
-
-        //public ActionResult RetrieveImage(int id)
-        //{
-        //    byte[] cover = postsService.GetImageFromDataBase(id);
-        //    if (cover != null)
-        //    {
-        //        return File(cover, "image/jpg");
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
     }
 
 

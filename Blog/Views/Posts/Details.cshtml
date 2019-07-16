@@ -1,4 +1,5 @@
 ﻿@model Blog.ViewModels.PostDetailsViewModel
+ 
 
 @{
     ViewBag.Title = "Details";
@@ -36,6 +37,13 @@
 <div>
     @Model.Created
 </div>
+<div>
+    <a href="@Url.Action("Edit", "Posts", new { id = Model.Id}, null)" class="btn btn-primary">Edytuj</a>
+</div>
+<div style="margin-top:20px">
+    <a href="@Url.Action("Delete", "Posts", new { id = Model.Id }, null)" class="btn btn-primary">Usuń</a>
+</div>
+
 
 
 

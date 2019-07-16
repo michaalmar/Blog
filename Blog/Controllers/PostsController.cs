@@ -52,6 +52,7 @@ namespace Blog.Controllers
 
             var postVM = new PostDetailsViewModel
             {
+                Id = post.Id,
                 AuthorName = post.AuthorName,
                 Content = post.Content,
                 Title = post.Title,

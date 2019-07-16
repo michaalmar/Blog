@@ -4,6 +4,7 @@ namespace Blog.ViewModels
 {
     public class PostDetailsViewModel
     {
+        public int Id { get; set; }
         public DateTime Created { get; set; } 
 
         public string Title { get; set; }
