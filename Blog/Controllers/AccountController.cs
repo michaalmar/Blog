@@ -2,9 +2,7 @@
 using Blog.Models;
 using Blog.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
@@ -13,6 +11,12 @@ namespace Blog.Controllers
     {
 
         private ApplicationUserManager _userManager;
+
+        public AccountController(ApplicationUserManager userManager)
+        {
+            _userManager = userManager;
+        }
+
         // GET: Account
         public ActionResult Register()
         {
@@ -32,7 +36,7 @@ namespace Blog.Controllers
                     UserName = model.UserName,
                 };
 
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -44,19 +48,7 @@ namespace Blog.Controllers
             return View(model);
         }
     
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-
+      
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
