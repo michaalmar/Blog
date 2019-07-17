@@ -5,7 +5,7 @@ namespace Blog.ViewModels
     public class RegisterUserViewModel
     {
         [Required]
-        [Display(Name ="Nazwa Użytkownika")]
+        [Display(Name = "UserName", ResourceType = typeof(Resources.Resources))]
         public string UserName { get; set; }
 
         [Required]
@@ -19,3 +19,5 @@ namespace Blog.ViewModels
 
     }
 }
+
+
