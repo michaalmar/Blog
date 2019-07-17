@@ -1,11 +1,12 @@
 ﻿using Blog.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 
 namespace Blog.DAL
 {
-    public class BlogContext : DbContext
+    public class BlogContext : IdentityDbContext<ApplicationUser>
     {
         public BlogContext() : base("BlogContext")
         {
@@ -22,6 +23,10 @@ namespace Blog.DAL
             base.OnModelCreating(modelBuilder);
         }
 
+        public static BlogContext Create()
+        {
+            return new BlogContext();
+        }
 
     }
 }
