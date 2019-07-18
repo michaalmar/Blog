@@ -43,6 +43,13 @@ namespace Blog.App_Start
 
             });
 
+            kernel.Bind<ApplicationSignInManager>().ToMethod(ctx =>
+            {
+                var httpContext = ctx.Kernel.Get<HttpContextBase>();
+                return httpContext.GetOwinContext().Get<ApplicationSignInManager>();
+
+            });
+
             RegisterServices(kernel);
             return kernel;
         }
