@@ -57,5 +57,10 @@ namespace Blog.Controllers
             }
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
     }
 }
