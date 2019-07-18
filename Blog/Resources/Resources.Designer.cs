@@ -61,6 +61,24 @@ namespace Blog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Potwierdź Hasło.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hasło.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zarejestruj się.
         /// </summary>
         public static string Register {

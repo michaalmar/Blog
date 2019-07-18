@@ -9,11 +9,11 @@ namespace Blog.ViewModels
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name ="Hasło")]
+        [Display(Name ="Password",ResourceType =typeof(Resources.Resources))]
         public string Password { get; set; }
 
         [Required]
-        [Display(Name ="Potwierdź hasło")]
+        [Display(Name ="ConfirmPassword",ResourceType =typeof(Resources.Resources))]
         [Compare("Password",ErrorMessage ="Podane hasła różnią się od siebie!")]
         public string ConffirmPassword { get; set; }
 
