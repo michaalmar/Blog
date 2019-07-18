@@ -5,7 +5,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
@@ -15,11 +14,13 @@ namespace Blog.Controllers
 
         private ApplicationUserManager _userManager;
         private ApplicationSignInManager _signInManager;
+        private readonly IAuthenticationManager AuthenticationManager;
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationManager AuthenticationManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.AuthenticationManager = AuthenticationManager;
         }
 
         // GET: Account
@@ -93,26 +94,6 @@ namespace Blog.Controllers
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
-            }
-
-            base.Dispose(disposing);
-        }
-
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -122,13 +103,6 @@ namespace Blog.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
