@@ -17,6 +17,9 @@ namespace Blog.ViewModels
         [Compare("Password",ErrorMessage ="Podane hasła różnią się od siebie!")]
         public string ConffirmPassword { get; set; }
 
+        [Required]
+        public string Role { get; set; }
+
     }
 }
 

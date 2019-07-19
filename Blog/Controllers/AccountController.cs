@@ -1,9 +1,11 @@
 ﻿using Blog.App_Start;
+using Blog.DAL;
 using Blog.Models;
 using Blog.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -15,17 +17,21 @@ namespace Blog.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationSignInManager _signInManager;
         private readonly IAuthenticationManager AuthenticationManager;
+        private readonly BlogContext DbContext;
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationManager AuthenticationManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationManager AuthenticationManager, BlogContext blogContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             this.AuthenticationManager = AuthenticationManager;
+            DbContext = blogContext;
         }
 
         // GET: Account
         public ActionResult Register()
         {
+            ViewBag.RoleList = new SelectList(DbContext.Roles.Where(u => !u.Name.Contains("Admin")).ToList(),"Name","Name");
+
             return View();
         }
 
@@ -47,11 +53,21 @@ namespace Blog.Controllers
 
                 if (result.Succeeded)
                 {
+
+                  
+                    await _userManager.AddToRoleAsync(user.Id, model.Role);
+                    
+
                     return RedirectToAction("Index", "Home");
                 }
 
+              
                 AddErrors(result);
             }
+            var roleLsit = new SelectList(DbContext.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+
+            ViewBag.RoleList = roleLsit;
+
             return View(model);
         }
 
