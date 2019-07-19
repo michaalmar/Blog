@@ -1,6 +1,7 @@
 ﻿using Blog.DAL;
 using Blog.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -15,6 +16,7 @@ namespace Blog.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
+            CreateUserRoles();
 
             app.CreatePerOwinContext(BlogContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -45,6 +47,39 @@ namespace Blog.App_Start
 
 
         }
+
+        private void CreateUserRoles()
+        {
+            BlogContext context = new BlogContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            if(!roleManager.RoleExists("Admin"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists("Czytelnik")) 
+            {
+                var role = new IdentityRole();
+                role.Name = "Czytelnik";
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists("Edytor")) 
+            {
+                var role = new IdentityRole();
+                role.Name = "Edytor";
+                roleManager.Create(role);
+            }
+
+
+        }
+
+
     }
 }
 
