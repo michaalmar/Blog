@@ -65,6 +65,7 @@ namespace Blog.App_Start
         {
             kernel.Bind<BlogContext>().ToSelf().InRequestScope();
             kernel.Bind<IPostsService>().To<PostsService>().InRequestScope();
+            kernel.Bind<IUserService>().To<UserService>().InRequestScope();
 
  
         }

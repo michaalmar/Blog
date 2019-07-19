@@ -192,6 +192,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IServices\IPostsService.cs" />
+    <Compile Include="IServices\IUserService.cs" />
     <Compile Include="Migrations\201907110746309_PostModel.cs" />
     <Compile Include="Migrations\201907110746309_PostModel.Designer.cs">
       <DependentUpon>201907110746309_PostModel.cs</DependentUpon>
@@ -223,6 +224,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\PostsService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PostCreateViewModel.cs" />
     <Compile Include="ViewModels\PostDetailsViewModel.cs" />
