@@ -3,6 +3,7 @@ using Blog.DAL;
 using Blog.IServices;
 using Blog.Services;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
@@ -41,6 +42,19 @@ namespace Blog.App_Start
                 var httpContext = ctx.Kernel.Get<HttpContextBase>();
                 return httpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
+            });
+
+            kernel.Bind<ApplicationSignInManager>().ToMethod(ctx =>
+            {
+                var httpContext = ctx.Kernel.Get<HttpContextBase>();
+                return httpContext.GetOwinContext().Get<ApplicationSignInManager>();
+
+            });
+
+            kernel.Bind<IAuthenticationManager>().ToMethod(ctx =>
+            {
+                var httpContext = ctx.Kernel.Get<HttpContextBase>();
+                return httpContext.GetOwinContext().Authentication;
             });
 
             RegisterServices(kernel);

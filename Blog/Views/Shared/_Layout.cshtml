@@ -11,21 +11,21 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
-        <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">
-            <span class="fas fa-home"></span>
-            BLOG
-        </a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="@Url.Action("Create" ,"Posts")" class="nav-link">
-                      Dodaj post
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-
+        
+            <a href="@Url.Action("Index" ,"Home")" class="navbar-brand">
+                <span class="fas fa-home"></span>
+                BLOG
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class=" nav navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="@Url.Action("Create" ,"Posts")" class="nav-link">
+                            Dodaj post
+                        </a>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
     </nav>
     <div class="container body-content">
         @RenderBody()

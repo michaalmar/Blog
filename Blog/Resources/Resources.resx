@@ -120,6 +120,12 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Potwierdź Hasło</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Logowanie</value>
+  </data>
+  <data name="LoginBtn" xml:space="preserve">
+    <value>Zaloguj</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
