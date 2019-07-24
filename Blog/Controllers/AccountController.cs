@@ -13,17 +13,17 @@ namespace Blog.Controllers
     public class AccountController : Controller
     {
 
-        private ApplicationUserManager _userManager;
-        private ApplicationSignInManager _signInManager;
-        private readonly IAuthenticationManager AuthenticationManager;
+        private readonly ApplicationUserManager userManager;
+        private readonly ApplicationSignInManager signInManager;
+        private readonly IAuthenticationManager authenticationManager;
         private readonly IUserService userService;
        
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IAuthenticationManager AuthenticationManager, IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            this.AuthenticationManager = AuthenticationManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.authenticationManager = AuthenticationManager;
             this.userService = userService;
         }
 
@@ -49,13 +49,13 @@ namespace Blog.Controllers
                     UserName = model.UserName,
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
 
                   
-                    await _userManager.AddToRoleAsync(user.Id, model.Role);
+                    await userManager.AddToRoleAsync(user.Id, model.Role);
                     
 
                     return RedirectToAction("Index", "Home");
@@ -94,7 +94,7 @@ namespace Blog.Controllers
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {
@@ -125,7 +125,7 @@ namespace Blog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 

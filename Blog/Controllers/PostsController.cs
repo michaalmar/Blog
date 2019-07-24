@@ -15,14 +15,14 @@ namespace Blog.Controllers
         }
 
 
-        [Authorize(Roles ="Edytor")]
+        [Authorize(Roles = Constant.Constant.User.ROLE_EDITOR)]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Edytor")]
+        [Authorize(Roles = Constant.Constant.User.ROLE_EDITOR)]
         public ActionResult Create(PostCreateViewModel post)
         {
             HttpPostedFileBase file = Request.Files["ImageData"];

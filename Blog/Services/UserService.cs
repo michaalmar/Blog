@@ -1,10 +1,8 @@
 ﻿using Blog.DAL;
 using Blog.IServices;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace Blog.Services
 {
@@ -20,7 +18,7 @@ namespace Blog.Services
 
         public IEnumerable GetRoles()
         {
-            var rolesList = new SelectList(dbContext.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            var rolesList = new SelectList(dbContext.Roles.Where(u => !u.Name.Contains(Constant.Constant.User.ROLE_ADMIN)).ToList(), "Name", "Name");
             return rolesList;
 
         }

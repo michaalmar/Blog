@@ -1,5 +1,6 @@
 ﻿@model Blog.ViewModels.PostDetailsViewModel
 @using Microsoft.AspNet.Identity
+@using Blog.Constant
 
 @{
     ViewBag.Title = "Details";
@@ -38,7 +39,7 @@
     @Model.Created
 </div>
 <div>
-    @if (Request.IsAuthenticated && User.IsInRole("Edytor"))
+    @if (Request.IsAuthenticated && User.IsInRole(Constant.User.ROLE_ADMIN))
     {
         <a href="@Url.Action("Edit", "Posts", new { id = Model.Id }, null)" class="btn btn-primary">Edytuj</a>
 
