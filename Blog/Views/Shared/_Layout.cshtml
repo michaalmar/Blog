@@ -7,6 +7,7 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @using Blog.Constant
 </head>
 <body>
 
@@ -18,11 +19,15 @@
             </a>
             <div class="collapse navbar-collapse">
                 <ul class=" nav navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a href="@Url.Action("Create" ,"Posts")" class="nav-link">
-                            Dodaj post
-                        </a>
-                    </li>
+                    @if (Request.IsAuthenticated && User.IsInRole(Constant.User.ROLE_EDITOR))
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create" ,"Posts")" class="nav-link">
+                                Dodaj post
+                            </a>
+                        </li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

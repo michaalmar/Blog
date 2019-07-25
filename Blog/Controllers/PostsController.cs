@@ -14,12 +14,15 @@ namespace Blog.Controllers
             this.postsService = postsService;
         }
 
+
+        [Authorize(Roles = Constant.Constant.User.ROLE_EDITOR)]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = Constant.Constant.User.ROLE_EDITOR)]
         public ActionResult Create(PostCreateViewModel post)
         {
             HttpPostedFileBase file = Request.Files["ImageData"];

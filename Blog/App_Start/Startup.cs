@@ -1,6 +1,7 @@
 ﻿using Blog.DAL;
 using Blog.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -15,6 +16,7 @@ namespace Blog.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
+            CreateUserRoles();
 
             app.CreatePerOwinContext(BlogContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -34,17 +36,40 @@ namespace Blog.App_Start
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+        }
 
-            // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
-            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
+        private void CreateUserRoles()
+        {
+            BlogContext context = new BlogContext();
 
-            // Enables the application to remember the second login verification factor such as phone or email.
-            // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
-            // This is similar to the RememberMe option when you log in.
-            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            if(!roleManager.RoleExists(Constant.Constant.User.ROLE_ADMIN))
+            {
+                var role = new IdentityRole();
+                role.Name = Constant.Constant.User.ROLE_ADMIN;
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists(Constant.Constant.User.ROLE_READER))
+            {
+                var role = new IdentityRole();
+                role.Name = Constant.Constant.User.ROLE_READER;
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists(Constant.Constant.User.ROLE_EDITOR)) 
+            {
+                var role = new IdentityRole();
+                role.Name = Constant.Constant.User.ROLE_EDITOR;
+                roleManager.Create(role);
+            }
 
 
         }
+
+
     }
 }
 

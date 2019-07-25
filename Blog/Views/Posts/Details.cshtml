@@ -1,5 +1,6 @@
 ﻿@model Blog.ViewModels.PostDetailsViewModel
- 
+@using Microsoft.AspNet.Identity
+@using Blog.Constant
 
 @{
     ViewBag.Title = "Details";
@@ -26,7 +27,7 @@
 </div>
 <div>
 
-   @Model.Content
+    @Model.Content
 </div>
 <br />
 
@@ -38,12 +39,17 @@
     @Model.Created
 </div>
 <div>
-    <a href="@Url.Action("Edit", "Posts", new { id = Model.Id}, null)" class="btn btn-primary">Edytuj</a>
-</div>
-<div style="margin-top:20px">
-    <a href="@Url.Action("Delete", "Posts", new { id = Model.Id }, null)" class="btn btn-primary">Usuń</a>
-</div>
+    @if (Request.IsAuthenticated && User.IsInRole(Constant.User.ROLE_ADMIN))
+    {
+        <a href="@Url.Action("Edit", "Posts", new { id = Model.Id }, null)" class="btn btn-primary">Edytuj</a>
 
+
+        <div style="margin-top:20px">
+            <a href="@Url.Action("Delete", "Posts", new { id = Model.Id }, null)" class="btn btn-primary ">Usuń</a>
+        </div>
+
+    }
+</div>
 
 
 
