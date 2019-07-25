@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -186,7 +189,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\BlogContext.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\PostDTO.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,6 +199,7 @@
     </Compile>
     <Compile Include="IServices\IPostsService.cs" />
     <Compile Include="IServices\IUserService.cs" />
+    <Compile Include="Mapper\UserMappingProfile.cs" />
     <Compile Include="Migrations\201907110746309_PostModel.cs" />
     <Compile Include="Migrations\201907110746309_PostModel.Designer.cs">
       <DependentUpon>201907110746309_PostModel.cs</DependentUpon>
