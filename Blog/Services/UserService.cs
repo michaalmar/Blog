@@ -2,10 +2,8 @@
 using Blog.DAL;
 using Blog.DTO;
 using Blog.IServices;
-using Blog.Models;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -25,11 +23,27 @@ namespace Blog.Services
             this.userManager = userManager;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllUserAsync()
+        public async Task<IEnumerable<UserDTO>> GetAllUserAsync()
         {
-            var userList = dbContext.Users;
 
-            return await userList.ToListAsync();
+            var usersWithRoles = (from user in dbContext.Users
+                                  select new
+                                  {
+                                      UserId = user.Id,
+                                      Username = user.UserName,                                   
+                                      RoleNames = (from userRole in user.Roles
+                                                   join role in dbContext.Roles on userRole.RoleId
+                                                   equals role.Id
+                                                   select role.Name).ToList()
+                                  }).ToList().Select(p => new UserDTO()
+
+                                  {
+                                     UserId = p.UserId,
+                                     UserName= p.Username,   
+                                     Role = string.Join(",", p.RoleNames)
+                                  });
+
+            return usersWithRoles;
 
         }
 

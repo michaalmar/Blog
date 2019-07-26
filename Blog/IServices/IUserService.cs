@@ -12,7 +12,7 @@ namespace Blog.IServices
 
         Task<bool> SaveChangesAsync();
 
-        Task<IEnumerable<ApplicationUser>> GetAllUserAsync();
+        Task<IEnumerable<UserDTO>> GetAllUserAsync();
 
   
 

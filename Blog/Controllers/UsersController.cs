@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Blog.DTO;
 using Blog.IServices;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -30,8 +28,7 @@ namespace Blog.Controllers
             {
                 var result = await userService.GetAllUserAsync();
 
-                var mappedResult = mapper.Map<IEnumerable<UserDTO>>(result);
-                return Ok(mappedResult);
+                return Ok(result);
             }
             catch
             {
