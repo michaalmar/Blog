@@ -1,6 +1,8 @@
-﻿using Blog.App_Start;
+﻿using AutoMapper;
+using Blog.App_Start;
 using Blog.DAL;
 using Blog.IServices;
+using Blog.Mapper;
 using Blog.Services;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -57,17 +59,32 @@ namespace Blog.App_Start
                 return httpContext.GetOwinContext().Authentication;
             });
 
+
+            kernel.Bind<IMapper>().ToMethod(context =>
+                 {
+                     var config = new MapperConfiguration(cfg =>
+                     {
+                         cfg.AddProfile(new UserMappingProfile());
+                         cfg.ConstructServicesUsing(t => kernel.Get(t));
+                     });
+                     return config.CreateMapper();
+                 }).InSingletonScope();
+
+
             RegisterServices(kernel);
             return kernel;
+
         }
 
         private static void RegisterServices(IKernel kernel)
         {
+
+         
             kernel.Bind<BlogContext>().ToSelf().InRequestScope();
             kernel.Bind<IPostsService>().To<PostsService>().InRequestScope();
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
 
- 
+
         }
     }
 }
