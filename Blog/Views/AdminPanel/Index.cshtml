@@ -6,24 +6,10 @@
 }
 
 
-<script>
-    var app = angular.module("BlogApp", []);
-    app.controller("AdminController", function ($scope, $http) {
-
-        $http.get('/api/users', data, config)
-            .then(
-            function (data) {
-                $scope.User = data;
-            },
-            function (error) {
-                alert("ERROR");
-            });
-
-    });
-</script>
 
 
-<h2>Index</h2>
+
+<h2>Admin Panel</h2>
 
 <div ng-app="BlogApp">
 
@@ -31,7 +17,7 @@
 
         <table class="table">
             <tr>
-                <th>Nazwa</th>
+                <th>Użytkownik</th>
                 <th>Rola</th>
             </tr>
             <tr ng-repeat="user in users">
@@ -43,3 +29,23 @@
     </div>
 </div>
 
+<script>
+    var app = angular.module("BlogApp", []);
+    app.controller("AdminController", function ($scope, $http) {
+        $scope.getData = function () {
+            $scope.users = [];
+
+
+            $http.get('/api/users')
+                .then(
+                    function (response) {
+                        $scope.users = response.data;
+                    },
+                    function (error) {
+                        alert("ERROR");
+                    });
+        }
+
+        $scope.getData();
+    });
+</script>
