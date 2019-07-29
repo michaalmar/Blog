@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 
 
-namespace Blog.Controllers
+namespace Blog.Controllers.APIControllers
 {
 
     [RoutePrefix("api/users")]

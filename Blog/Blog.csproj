@@ -194,9 +194,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constant\Constant.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\APIControllers\UsersController.cs" />
     <Compile Include="DAL\BlogContext.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\PostDTO.cs" />
@@ -1116,6 +1117,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\AdminPanel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
