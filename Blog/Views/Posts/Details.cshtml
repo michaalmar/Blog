@@ -39,7 +39,7 @@
     @Model.Created
 </div>
 <div>
-    @if (Request.IsAuthenticated && User.IsInRole(Constant.User.ROLE_ADMIN))
+    @if (Request.IsAuthenticated && User.IsInRole(Constant.User.ROLE_ADMIN) || User.IsInRole(Constant.User.ROLE_EDITOR))
     {
         <a href="@Url.Action("Edit", "Posts", new { id = Model.Id }, null)" class="btn btn-primary">Edytuj</a>
 

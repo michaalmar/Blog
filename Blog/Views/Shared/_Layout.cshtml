@@ -32,6 +32,14 @@
                             </a>
                         </li>
                     }
+                    @if (Request.IsAuthenticated && User.IsInRole(Constant.User.ROLE_ADMIN))
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","AdminPanel")" class="nav-link">
+                                Panel administratora
+                            </a>
+                        </li>
+                    }
 
                 </ul>
                 @Html.Partial("_LoginPartial")

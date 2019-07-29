@@ -42,6 +42,10 @@ namespace Blog.Controllers.APIControllers
         {
             try
             {
+                if(userName == "admin")
+                {
+                    return NotFound();
+                }
                 var user = await userService.GetUser(userName);
 
                 if(user ==null)
