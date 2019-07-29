@@ -37,6 +37,35 @@ namespace Blog.Controllers.APIControllers
 
         }
 
+        [Route("{userName}")]
+        public async Task<IHttpActionResult>Delete(string userName)
+        {
+            try
+            {
+                var user = await userService.GetUser(userName);
+
+                if(user ==null)
+                {
+                    return NotFound();
+                }
+                userService.DeleteUser(user);
+                if(await userService.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+
+            }
+            catch
+            {
+                return InternalServerError();
+            }
+        }
+    
+
 
     }
 }

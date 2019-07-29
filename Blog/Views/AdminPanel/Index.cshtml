@@ -1,8 +1,45 @@
 ﻿
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+<script>
+    var app = angular.module("BlogApp", []);
+    app.controller("AdminController", function ($scope, $http) {
+
+        $http.get('/api/users', data, config)
+            .then(
+            function (data) {
+                $scope.User = data;
+            },
+            function (error) {
+                alert("ERROR");
+            });
+
+    });
+</script>
+
+
 <h2>Index</h2>
+
+<div ng-app="BlogApp">
+
+    <div ng-controller="AdminController">
+
+        <table class="table">
+            <tr>
+                <th>Nazwa</th>
+                <th>Rola</th>
+            </tr>
+            <tr ng-repeat="user in users">
+
+                <td>{{user.userName}}</td>
+                <td>{{user.role}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 

@@ -14,7 +14,9 @@ namespace Blog.IServices
 
         Task<IEnumerable<UserDTO>> GetAllUserAsync();
 
-  
+        Task<ApplicationUser> GetUser(string userName);
+
+        void DeleteUser(ApplicationUser user);
 
     }
     

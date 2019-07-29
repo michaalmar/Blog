@@ -2,8 +2,10 @@
 using Blog.DAL;
 using Blog.DTO;
 using Blog.IServices;
+using Blog.Models;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -59,6 +61,18 @@ namespace Blog.Services
         {
             return (await dbContext.SaveChangesAsync()) > 0;
         }
-        
+
+        public Task<ApplicationUser> GetUser(string userName)
+        {
+            var user = dbContext.Users.Where(u => u.UserName == userName).FirstOrDefaultAsync();
+
+            return user;
+        }
+
+
+        public void DeleteUser(ApplicationUser user)
+        {
+            dbContext.Users.Remove(user);
+        }
     }
 }
