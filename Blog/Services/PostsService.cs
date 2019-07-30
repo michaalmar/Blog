@@ -50,14 +50,12 @@ namespace Blog.Services
 
 
 
-        public Post Delete(int id)
+        public void Delete(int id)
         {
             Post post = dbContext.Posts.Find(id);
 
             dbContext.Posts.Remove(post);
             dbContext.SaveChanges();
-
-            return post;
 
         }
 

@@ -12,7 +12,7 @@ namespace Blog.IServices
 
         Post Get(int id);
 
-        Post Delete(int id);
+        void Delete(int id);
 
         bool Update(PostEditViewModel viewModel);
 
