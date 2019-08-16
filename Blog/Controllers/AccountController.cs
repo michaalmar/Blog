@@ -30,7 +30,7 @@ namespace Blog.Controllers
         // GET: Account
         public ActionResult Register()
         {
-            ViewBag.RoleList = userService.GetRoles();
+            ViewBag.RoleList = userService.GetAllRoles();
 
             return View();
         }
@@ -65,7 +65,7 @@ namespace Blog.Controllers
                 AddErrors(result);
             }
 
-            var roleList = userService.GetRoles();
+            var roleList = userService.GetAllRoles();
             ViewBag.RoleList = roleList;
 
 
